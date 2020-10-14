@@ -1,0 +1,12 @@
+{
+  "name": "png",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:corbinmuraro/png.git",
+  "author": "Corbin Muraro <corbinmuraro@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "mailparser": "^3.0.0"
+  }
+}
