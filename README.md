@@ -1,3 +1,3 @@
 # png
 
-png.corbinmuraro.com
+https://png.corbinmuraro.com
