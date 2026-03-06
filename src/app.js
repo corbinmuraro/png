@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Dropbox } from "dropbox";
 import "./app.css";
+
+const ARENA_CHANNEL_SLUG = "png-app2b046clc";
 
 const App = () => {
   const [imageUrls, setImageUrls] = useState([]);
 
   async function fetchImages() {
-    let dbx = new Dropbox({
-      accessToken:
-        "mNuFKmh5rh8AAAAAAAAAAbOkVe8Gx_aezrRqg2hybN_DbtLyPTJ5BDRBOJEf9brq",
-    });
+    const response = await fetch(
+      `https://api.are.na/v2/channels/${ARENA_CHANNEL_SLUG}/contents`
+    );
+    const data = await response.json();
 
-    dbx.sharingGetSharedLinks({ path: "" }).then((response) => {
-      const imageUrls = response.result.links.map((image) =>
-        image.url.replace(/([^?]+$)/gi, "raw=1")
-      );
+    const images = data.contents
+      .filter((block) => block.class === "Image")
+      .map((block) => ({
+        url: block.image.original.url,
+        arenaUrl: `https://www.are.na/block/${block.id}`,
+      }));
 
-      setImageUrls(imageUrls);
-    });
+    setImageUrls(images);
   }
 
   useEffect(() => {
@@ -30,10 +32,10 @@ const App = () => {
         <a href="https://corbinmuraro.com">Corbin Muraro</a>
       </div>
       <div className="main">
-        {imageUrls.map((url, i) => {
+        {imageUrls.map((image, i) => {
           return (
-            <a className="image" href={url} target="_blank" key={i}>
-              <img className="image" src={url} key={i} />
+            <a className="image" href={image.arenaUrl} target="_blank" rel="noreferrer" key={i}>
+              <img className="image" src={image.url} alt="" />
             </a>
           );
         })}
