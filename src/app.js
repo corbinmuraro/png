@@ -8,7 +8,7 @@ const App = () => {
 
   async function fetchImages() {
     const response = await fetch(
-      `https://api.are.na/v2/channels/${ARENA_CHANNEL_SLUG}/contents`
+      `https://api.are.na/v2/channels/${ARENA_CHANNEL_SLUG}/contents?per=100`
     );
     const data = await response.json();
 
